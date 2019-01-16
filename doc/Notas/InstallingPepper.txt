@@ -1,0 +1,49 @@
+TUTORIAL PARA INSTALAR PEPPER EN ROS
+
+Se asume que ROS Kinetic ya esta instalado.
+
+1. Se deben configurar los repositorios para los paquetes con su respectiva llave. Se debe ejecutar:
+
+	$ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+	$ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+
+2. Se deben instalar las dependencias para ejecutar los paquetes de Pepper
+
+	$ sudo apt-get install ros-kinetic-driver-base ros-kinetic-move-base-msgs ros-kinetic-octomap ros-kinetic-octomap-msgs ros-kinetic-humanoid-msgs ros-kinetic-humanoid-nav-msgs ros-kinetic-camera-info-manager ros-kinetic-camera-info-manager-py
+
+3. Instalar los paquetes de Pepper
+
+	$ sudo apt-get install ros-kinetic-pepper-.*
+
+4. Instalar los paquetes de NAOqi
+
+	$ cd ~/catkin_ws/src
+	$ git clone https://github.com/ros-naoqi/naoqi_driver.git
+	$ rosdep install -i -y --from-paths ./naoqi_driver
+	$ source /opt/ros/kinetic/setup.sh
+	$ cd ../ && catkin_make
+
+5. Para simular a Pepper en Gazebo, ejecutar las siguientes lineas:
+
+	$ mdkir -p ~/test_roboticsgroup_ws/src
+	$ cd ~/test_roboticsgroup_ws/src
+	$ git clone https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins.git
+	$ cd ~/test_roboticsgroup_ws/
+	$ source /opt/ros/kinetic/setup.bash
+	$ catkin_make
+
+	$ sudo apt-get install ros-kinetic-pepper-description ros-kinetic-pepper-meshes ros-kinetic-pepper-control
+
+	$ git clone https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins.git
+	$ git clone https://github.com/pal-robotics/pal_msgs.git
+	$ git clone https://github.com/pal-robotics/pal_gazebo_plugins.git
+	$ catkin_make
+
+	$ sudo apt-get update
+	$ sudo apt-get install ros-kinetic-pepper-gazebo-plugin
+
+6. Ejecutar la siguiente línea para visualizar a Pepper en Gazebo
+
+	$ roslaunch pepper_gazebo_plugin pepper_gazebo_plugin_Y20.launch
+
+7. Esperar a que la simulación termine de cargar y darle al boton de Play en Gazebo.

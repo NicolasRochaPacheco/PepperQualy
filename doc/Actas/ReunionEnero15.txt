@@ -1,0 +1,20 @@
+Acta de Reunion Enero 15
+
+
+Preguntas
+	¿Cómo se hace la comunicación entre robot y servidor para hacer procesamiento del computador?
+	¿Cómo hacen las simulaciones de Pepper con ROS?
+	¿Se puede modificar NAOqi para hacer cosas directamente en Pepper?
+	
+Tareas:
+	Simular los datos que vienen de Pepper para procesar con ROS:
+		- Datos de navegación.
+		- Datos de audio.
+		- Datos de video.
+		- Datos de los sensores.
+	Diseño de la máquina de estados.
+	Diseñar la arquitectura de ROS de tal manera que pueda interactuar con ROS.
+
+Pepper:
+	Estancado en Miami con incertidumbre en la importación.
+	Bancolombia promete que la próxima semana está en Colombia.

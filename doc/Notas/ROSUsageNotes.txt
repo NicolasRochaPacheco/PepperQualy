@@ -1,0 +1,66 @@
+ROS Usage Notes
+
+NOTAS SOBRE EL FUNCIONAMIENTO DE ROS
+
+>> Referirse a la documentacion para instalar ROS.
+
+>> Los nodos realizan funciones. Cada nodo tiene una tarea especifica. Cada nodo se comunica mediante los topicos. Cualquier nodo puede publicar y suscribirse a cualquier topico. Lista de comandos relacionados con los nodos y los topicos.
+
+	Notacion en los topicos: /topico
+
+	$ rosnode list
+	$ rosnode info [NODO]
+	$ rostopic list
+	$ rostopic info [TOPICO]
+	$ rostopic echo [TOPICO]
+	$ rostopic type [TOPICO]
+	$ rostopic pub [TOPICO] [MSG_TYPE] [MSG]
+
+>> Los mensajes permiten comunicacion entre nodos sin importar el lenguaje utilizado. Son definidos en archivos .msg con formatos en especifico.
+
+	$ rosmsg show [MSG]
+
+>> ROS master: Es un servidor que sigue la red de todos los otros nodos. Cada nodo debe informar al maestro donde publican, donde se van a suscribir y controla la conexion entre los nodos. La direccion del maestro se define en ROS_MASTER_URI. El maestro se inicializa mediante:
+	
+	$ roscore
+	$ roslaunch
+
+
+NOTAS SOBRE EL DESARROLLO DE NODOS EN ROS
+
+>> Asumiendo que quiero hacer un nodo que envíe datos de odometria. El codigo va a ser escrito en Python 2.7:
+
+	#!/usr/bin/env python
+	
+	import rospy
+	from nav_msgs.msg import Odometry
+
+	def callback(msg):
+		x = msg.pose.pose.position.x
+		t = msg.pose.pose.position.y
+		rospy.loginfo('x: {}, y: {}'.format(x, y))
+
+	def main():
+		rospy.init_node('location_monitor')
+		rospy.Subscriber('/odom', Odometry, callback)
+		rospy.spin()
+
+	if __name__ == '__main__':
+		main()
+
+>> Es necesario cambiar el modo del archivo a ejecutable:
+	
+	$ chmod +x [SCRIPT]
+
+>> Para ejecutar el nodo se debe usar el siguiente comando
+
+	$ rosrun [PACKAGE] [SCRIPT]
+
+
+PARA TENER EN CUENTA
+
+>> Siempre es necesario ejecutar la siguiente linea. Se puede evitar esto modificando el archivo bashrc.
+		
+		$ source /opt/ros/kinetic/setup.bash
+	
+	
